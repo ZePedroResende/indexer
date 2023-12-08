@@ -24,6 +24,7 @@ pub fn start(db: Db, config: HttpConfig) -> JoinHandle<std::result::Result<(), s
             .wrap(TracingLogger::default())
             .service(routes::health)
             .service(routes::register)
+            .service(routes::auth)
             .app_data(web::Data::new(db.clone()))
     })
     .bind(("0.0.0.0", config.port))
