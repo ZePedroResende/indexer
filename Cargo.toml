@@ -36,7 +36,6 @@ diesel-async = { version = "0.4.1", features = [
   "async-connection-wrapper",
 ] }
 tracing-actix-web = "0.7.9"
-<<<<<<< HEAD
 chrono = { version = "0.4.31", features = ["serde"], default-features = false }
 bigdecimal = { version = "0.4.2", default-features = false }
 
@@ -59,6 +58,9 @@ scalable_cuckoo_filter = "0.2.3"
 rand = { version = "0.8.5", default-features = false, features = ["std_rng"] }
 tokio-util = { version = "0.7.10", features = ["rt"] }
 diesel_migrations = { version = "2.1.0", features = ["postgres"] }
+actix-jwt-auth-middleware = "0.3.0"
+jwt-compact = { version = "0.7.0", default-features = false, features = ["std", "clock","exonum-crypto"] }
+exonum-crypto = { version= "1.0.0", default-features = false, features = ["sodiumoxide-crypto"]}
 
 [dev-dependencies]
 criterion = { version = "0.5.1", features = ["async_tokio"] }

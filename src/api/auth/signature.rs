@@ -1,3 +1,4 @@
+use crate::api::User;
 use color_eyre::{eyre::bail, eyre::eyre, Result};
 use ethers_contract_derive::{Eip712, EthAbiType};
 use ethers_core::types::Signature;
@@ -104,8 +105,7 @@ mod test {
             address,
             current_timestamp,
             expiration_timestamp,
-        }
-        .into();
+        };
 
         let signature = sign_type_data(data).await?.to_string();
 
@@ -176,8 +176,7 @@ mod test {
             address,
             current_timestamp,
             expiration_timestamp,
-        }
-        .into();
+        };
 
         let encoded = data.encode_eip712()?;
 
@@ -202,34 +201,34 @@ mod test {
             check_time(initial_time, five_minutes)
                 .unwrap_err()
                 .downcast::<TimeError>()?,
-            TimeError::InvalidCurrentTimestamp.into()
+            TimeError::InvalidCurrentTimestamp
         );
 
         assert_eq!(
             check_time(initial_time, now)
                 .unwrap_err()
                 .downcast::<TimeError>()?,
-            TimeError::InvalidCurrentTimestamp.into()
+            TimeError::InvalidCurrentTimestamp
         );
         assert_eq!(
             check_time(initial_time, ten_minutes_after)
                 .unwrap_err()
                 .downcast::<TimeError>()?,
-            TimeError::InvalidCurrentTimestamp.into()
+            TimeError::InvalidCurrentTimestamp
         );
 
         assert_eq!(
             check_time(ten_minutes_ago, ten_minutes_after)
                 .unwrap_err()
                 .downcast::<TimeError>()?,
-            TimeError::InvalidCurrentTimestamp.into()
+            TimeError::InvalidCurrentTimestamp
         );
 
         assert_eq!(
             check_time(five_minutes_after, ten_minutes_after)
                 .unwrap_err()
                 .downcast::<TimeError>()?,
-            TimeError::InvalidCurrentTimestamp.into()
+            TimeError::InvalidCurrentTimestamp
         );
         Ok(())
     }
@@ -247,28 +246,28 @@ mod test {
 
         assert_eq!(
             check_time(now, now).unwrap_err().downcast::<TimeError>()?,
-            TimeError::InvalidExpirationTimestamp.into()
+            TimeError::InvalidExpirationTimestamp
         );
 
         assert_eq!(
             check_time(now, five_minutes_ago)
                 .unwrap_err()
                 .downcast::<TimeError>()?,
-            TimeError::InvalidExpirationTimestamp.into()
+            TimeError::InvalidExpirationTimestamp
         );
 
         assert_eq!(
             check_time(five_minutes_ago, now)
                 .unwrap_err()
                 .downcast::<TimeError>()?,
-            TimeError::InvalidExpirationTimestamp.into()
+            TimeError::InvalidExpirationTimestamp
         );
 
         assert_eq!(
             check_time(five_minutes_ago, ten_minutes_ago)
                 .unwrap_err()
                 .downcast::<TimeError>()?,
-            TimeError::InvalidExpirationTimestamp.into()
+            TimeError::InvalidExpirationTimestamp
         );
 
         Ok(())
